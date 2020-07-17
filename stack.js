@@ -43,14 +43,14 @@ function display(stack) {
     return display;
 }
 
-function is_palindrome(s) {
+function isPalindrome(str) {
 
-    s = s.toLowerCase().replace(/[^a-zA-Z0-9]/g, '').split('');
+    str = str.toLowerCase().replace(/[^a-zA-Z0-9]/g, '').split('');
     let palindromeStack = new Stack;
     let bool = true;
-    s.forEach(char => palindromeStack.push(char));
-    s.forEach(char => {
-        if(char !== peek(palindromeStack).data) {
+    str.forEach(curItem => palindromeStack.push(curItem));
+    str.forEach(curItem => {
+        if (curItem !== peek(palindromeStack).data) {
             bool = false;
         }
         palindromeStack.pop();
@@ -62,35 +62,63 @@ function balanceParens(expression) {
     let leftParens = 0;
     let rightParens = 0;
     for (let i = 0; i < expression.length; i++) {
-      if (expression[i] === '(') {
-        leftParens++;
-      } else if (expression[i] === ')') {
-        rightParens++;
-      }
+        if (expression[i] === '(') {
+            leftParens++;
+        } else if (expression[i] === ')') {
+            rightParens++;
+        }
     }
     if (leftParens !== rightParens) {
-      return false;
+        return false;
     }
     return true;
-  }
+}
+//   const peek = (stack) => console.log(stack.top.data);
+
+
+//   const isEmpty = stack => stack.top === null;
+
+function sortStack(stack) {
+    let newStack = new Stack();
+
+    while (!isEmpty(stack)) {
+        let temp = stack.pop()
+        // console.log(peek(newStack))
+        while (!isEmpty(newStack) && (peek(newStack).data > temp)) {
+
+            stack.push(newStack.pop())
+        }
+        newStack.push(temp);
+    }
+    console.log('string')
+    console.log(display(newStack));
+}
+
+
+// Old 0,4,1,3
+// New 
+// T
 
 function main() {
-    let starTrek = new Stack;
-    starTrek.push('Kirk');
-    starTrek.push('Spock');
-    starTrek.push('McCoy');
-    starTrek.push('Scotty');
+    let treky = new Stack;
+    treky.push(0);
+    treky.push(4);
+    treky.push(1);
+    treky.push(3);
 
-    starTrek.pop();
-    starTrek.pop();
+    //treky.pop();
+    // treky.pop();
 
-    starTrek.push('Scotty');
+    //treky.push(1);
 
 
-    console.log(display(starTrek));
-    console.log(is_palindrome('racecar'));
-    console.log(is_palindrome('A man, a plan, a canal: Panama'));
-    console.log(balanceParens('1 + 2 + (1 + 3)'));
+    // console.log(display(treky));
+    // console.log(isPalindrome('racecar'));
+    // console.log(isPalindrome('A man, a plan, a canal: Panama'));
+    // console.log(balanceParens('1 + 2 + (1 + 3)'));
+    console.log(sortStack(treky));
 }
 
 main();
+
+
